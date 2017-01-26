@@ -25,7 +25,7 @@ namespace RepostChecker
             string ApiKey = "EAACEdEose0cBADKcGNWxp9cYqj0LsS63ZADO0CIm1kX2Y2MD3NZB4vh7CuhnnUoIo159fXeS5BnMYQtFvRMnYB5bhXYYiEs3Csje7Yk4d3M5ci7MTbZCwMm7MTxVagfZC0xK0ZAtmvwjiUBUkxZA0S9ErIZBg7mUq4xZCt9OwB8I3wZDZD";
             //string trolololId = "264695076893206"; // Trololol
             string trolololId = "1360768953987327"; // Trololol test
-            string postDouteux = "1361673753896847"; // Post a tester
+            string postDouteux = "1360799297317626"; // Post a tester
 
             //Repertoire de sauvegarde des miniatures
             string codebase = Assembly.GetExecutingAssembly().Location;
