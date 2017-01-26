@@ -274,4 +274,9 @@ __pycache__/
 # tools/**
 # !tools/packages.config
 
+# Perso
+RepostChecker/Model/*
+RepostChecker/Controller/*
+
+
 0

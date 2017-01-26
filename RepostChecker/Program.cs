@@ -22,9 +22,10 @@ namespace RepostChecker
         static void Main()
         {
             //Variable
-            string ApiKey = "EAACEdEose0cBAOF1pEPiSdpGsgHoe6ve8Owdfwu8PMUaqSOZClZBgBZA3cY0tRbdqFpE9KK7MBZCManWCUD1JMqS57AdKf7Mmb6KR3jkz1S77hZCiyESfYXV6sMWViXo5QTrZA2mezc4azC6lKwEuNSkcxhqgknEr1fba9k5yJ75gG2xRZCpdkcSRdzWUYfZA3UZD";
-            string trolololId = "264695076893206";
-            string postDouteux = "1693124277383605";
+            string ApiKey = "EAACEdEose0cBADKcGNWxp9cYqj0LsS63ZADO0CIm1kX2Y2MD3NZB4vh7CuhnnUoIo159fXeS5BnMYQtFvRMnYB5bhXYYiEs3Csje7Yk4d3M5ci7MTbZCwMm7MTxVagfZC0xK0ZAtmvwjiUBUkxZA0S9ErIZBg7mUq4xZCt9OwB8I3wZDZD";
+            //string trolololId = "264695076893206";
+            string trololol_testId = "1360768953987327";
+            string postDouteux = "1360799297317626"; // HOTS Link
 
             //Repertoire de sauvegarde des miniatures
             string codebase = Assembly.GetExecutingAssembly().Location;
@@ -42,7 +43,7 @@ namespace RepostChecker
             var posts = new List<FacebookPost>();
 
             //On récupère les 250 premiers posts du groupes.
-            var data = wrapper.Client.Get(string.Format("{0}/{1}?limit=250", trolololId, "feed"));
+            var data = wrapper.Client.Get(string.Format("{0}/{1}?limit=250", trololol_testId, "feed"));
             var formattedData = JsonConvert.DeserializeObject<FacebookGroupFeed>(data.ToString());
 
             //On récupère tous l'historique du groupe.
@@ -55,9 +56,9 @@ namespace RepostChecker
             }
 
             Console.WriteLine("######################################################################");
-            Console.WriteLine(string.Format("Il y a {0} post sur le groupe {1}", posts.Count, trolololId));
+            Console.WriteLine(string.Format("Il y a {0} post sur le groupe {1}", posts.Count, trololol_testId));
 
-            string postIdToFindDuplicate = string.Format("{0}_{1}", trolololId, postDouteux);
+            string postIdToFindDuplicate = string.Format("{0}_{1}", trololol_testId, postDouteux);
             //On verifie que le post douteux existe
             if (!posts.Any(s => s.Id == postIdToFindDuplicate))
             {
@@ -67,7 +68,7 @@ namespace RepostChecker
             }
 
             //Message posté si le repost est prouvé
-            var message = new { message = string.Format("https://www.facebook.com/groups/{0}/permalink/{1} est un repost", trolololId, postDouteux) };
+            //var message = new { message = string.Format("https://www.facebook.com/groups/{0}/permalink/{1} est un repost", trololol_testId, postDouteux) };
 
             //Le post douteux
             var postToLook = posts.Single(s => s.Id == postIdToFindDuplicate);
@@ -116,8 +117,30 @@ namespace RepostChecker
             }
             else
             {
-                wrapper.Client.Post(string.Format("{0}/comments", original.Id), message);
-                Console.WriteLine("Found and left msg on fb");
+                Console.WriteLine("Repost found");
+                string[] ids = original.Id.Split('_');
+                string id_post = ids[1];
+                Console.WriteLine("Original post Id :" + id_post);
+                //Console.WriteLine("Do you want to signalise it ? (y/n)");
+                //if(Console.ReadKey().Key.ToString() == "y")
+                //{
+                //Message posté si le repost est prouvé
+                var message = string.Format("https://www.facebook.com/groups/{0}/permalink/{1} est un repost", trololol_testId, postDouteux);
+                var commentDicitonay = new Dictionary<string, object>
+                                       {
+                                           {"id", original.Id},
+                                           {"from", ApiKey},
+                                           {"message", message}
+                                       };
+                wrapper.Client.Post("/comments", commentDicitonay);
+                //wrapper.Client.Post(string.Format("{0}/comments", id_post), message);
+                    Console.WriteLine("Message left msg on fb");
+                //}
+                //else
+                //{
+                  //  Console.WriteLine("No one will know it's a repost, you monster !");
+                //}
+                
                 Console.ReadKey();
             }
         }

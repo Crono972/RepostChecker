@@ -6,6 +6,8 @@ namespace RepostChecker
 
     public class User
     {
+        [JsonProperty("Id")]
+        public string Id;
         [JsonProperty("name")]
         public string Name;
     }
@@ -22,6 +24,8 @@ namespace RepostChecker
         public string Link;
         [JsonProperty("picture")]
         public string PictureUrl;
+        [JsonProperty("source")]
+        public string Source;
     }
 
     public class FacebookGroupFeed
