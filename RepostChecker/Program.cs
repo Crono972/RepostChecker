@@ -23,9 +23,9 @@ namespace RepostChecker
         {
             //Variable
             string ApiKey = "EAACEdEose0cBADKcGNWxp9cYqj0LsS63ZADO0CIm1kX2Y2MD3NZB4vh7CuhnnUoIo159fXeS5BnMYQtFvRMnYB5bhXYYiEs3Csje7Yk4d3M5ci7MTbZCwMm7MTxVagfZC0xK0ZAtmvwjiUBUkxZA0S9ErIZBg7mUq4xZCt9OwB8I3wZDZD";
-            //string trolololId = "264695076893206";
-            string trololol_testId = "1360768953987327";
-            string postDouteux = "1360799297317626"; // HOTS Link
+            //string trolololId = "264695076893206"; // Trololol
+            string trolololId = "1360768953987327"; // Trololol test
+            string postDouteux = "1361673753896847"; // Post a tester
 
             //Repertoire de sauvegarde des miniatures
             string codebase = Assembly.GetExecutingAssembly().Location;
@@ -43,7 +43,7 @@ namespace RepostChecker
             var posts = new List<FacebookPost>();
 
             //On récupère les 250 premiers posts du groupes.
-            var data = wrapper.Client.Get(string.Format("{0}/{1}?limit=250", trololol_testId, "feed"));
+            var data = wrapper.Client.Get(string.Format("{0}/{1}?limit=250", trolololId, "feed"));
             var formattedData = JsonConvert.DeserializeObject<FacebookGroupFeed>(data.ToString());
 
             //On récupère tous l'historique du groupe.
@@ -56,9 +56,9 @@ namespace RepostChecker
             }
 
             Console.WriteLine("######################################################################");
-            Console.WriteLine(string.Format("Il y a {0} post sur le groupe {1}", posts.Count, trololol_testId));
+            Console.WriteLine(string.Format("Il y a {0} post sur le groupe {1}", posts.Count, trolololId));
 
-            string postIdToFindDuplicate = string.Format("{0}_{1}", trololol_testId, postDouteux);
+            string postIdToFindDuplicate = string.Format("{0}_{1}", trolololId, postDouteux);
             //On verifie que le post douteux existe
             if (!posts.Any(s => s.Id == postIdToFindDuplicate))
             {
@@ -68,7 +68,7 @@ namespace RepostChecker
             }
 
             //Message posté si le repost est prouvé
-            //var message = new { message = string.Format("https://www.facebook.com/groups/{0}/permalink/{1} est un repost", trololol_testId, postDouteux) };
+            //var message = new { message = string.Format("https://www.facebook.com/groups/{0}/permalink/{1} est un repost", trolololId, postDouteux) };
 
             //Le post douteux
             var postToLook = posts.Single(s => s.Id == postIdToFindDuplicate);
@@ -117,15 +117,8 @@ namespace RepostChecker
             }
             else
             {
-                Console.WriteLine("Repost found");
-                string[] ids = original.Id.Split('_');
-                string id_post = ids[1];
-                Console.WriteLine("Original post Id :" + id_post);
-                //Console.WriteLine("Do you want to signalise it ? (y/n)");
-                //if(Console.ReadKey().Key.ToString() == "y")
-                //{
-                //Message posté si le repost est prouvé
-                var message = string.Format("https://www.facebook.com/groups/{0}/permalink/{1} est un repost", trololol_testId, postDouteux);
+                Console.WriteLine("Repost found");           
+                var message = string.Format("https://www.facebook.com/groups/{0}/permalink/{1} est un repost", trolololId, postDouteux);
                 var commentDicitonay = new Dictionary<string, object>
                                        {
                                            {"id", original.Id},
@@ -135,11 +128,6 @@ namespace RepostChecker
                 wrapper.Client.Post("/comments", commentDicitonay);
                 //wrapper.Client.Post(string.Format("{0}/comments", id_post), message);
                     Console.WriteLine("Message left msg on fb");
-                //}
-                //else
-                //{
-                  //  Console.WriteLine("No one will know it's a repost, you monster !");
-                //}
                 
                 Console.ReadKey();
             }
