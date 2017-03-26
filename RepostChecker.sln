@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Back", "RepostChecker\Back.csproj", "{FAC6E5AE-8186-4C2E-89EF-CF2A191202C5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Back", "Back\Back.csproj", "{FAC6E5AE-8186-4C2E-89EF-CF2A191202C5}"
 EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Front", "Front\Front.njsproj", "{5BE866ED-D9D7-40E6-B142-6ED7A3391B5C}"
 EndProject
