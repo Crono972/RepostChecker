@@ -9,4 +9,5 @@ namespace RepostChecker.Model
         [JsonProperty("name")]
         public string Name;
     }
+
 }

@@ -3,6 +3,6 @@
     public class Context
     {
         public string ApiToken { get; set; }
-        public string GroupId { get; set; }
+        public long GroupId { get; set; }
     }
 }

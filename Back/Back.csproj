@@ -59,6 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Constants.cs" />
     <Compile Include="Model\Context.cs" />
     <Compile Include="Domain\DuplicateFinder.cs" />
     <Compile Include="Infra\FacebookWrapper.cs" />

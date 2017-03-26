@@ -21,7 +21,7 @@ namespace RepostChecker
             var context = new Context
             {
                 ApiToken = "EAACEdEose0cBADKcGNWxp9cYqj0LsS63ZADO0CIm1kX2Y2MD3NZB4vh7CuhnnUoIo159fXeS5BnMYQtFvRMnYB5bhXYYiEs3Csje7Yk4d3M5ci7MTbZCwMm7MTxVagfZC0xK0ZAtmvwjiUBUkxZA0S9ErIZBg7mUq4xZCt9OwB8I3wZDZD",
-                GroupId = "1360768953987327"
+                GroupId = Constants.Group.Trololol
             };
             string postDouteux = "1360799297317626"; // Post a tester
 

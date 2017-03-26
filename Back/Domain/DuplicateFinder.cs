@@ -34,16 +34,14 @@ namespace RepostChecker.Domain
                 throw new ArgumentException("Post doesn't exist");
             }
 
-            var otherPosts = _posts.Where(s => s.Id != postFullid);
-
-            var linkRepost = FindLinkRepost(potentialRepost, otherPosts);
+            var linkRepost = FindLinkRepost(potentialRepost);
             if (linkRepost != null)
             {
                 logger.InfoFormat("Found link repost {0} by {1}", linkRepost.Id, linkRepost.Author);
                 return linkRepost;
             }
 
-            return FindByPicture(potentialRepost, otherPosts);
+            return FindByPicture(potentialRepost);
         }
 
         private FacebookPost GetPost(string postId)
@@ -51,17 +49,18 @@ namespace RepostChecker.Domain
             return _posts.FirstOrDefault(s => s.Id == postId);
         }
 
-        private FacebookPost FindLinkRepost(FacebookPost potentialRepost, IEnumerable<FacebookPost> lists)
+        public FacebookPost FindLinkRepost(FacebookPost potentialRepost)
         {
+            var otherPosts = _posts.Where(s => s.Id != potentialRepost.Id);
             if (string.IsNullOrEmpty(potentialRepost.Link))
             {
                 return null;
             }
 
-            return lists.FirstOrDefault(s => s.Link == potentialRepost.Link);
+            return otherPosts.FirstOrDefault(s => s.Link == potentialRepost.Link);
         }
 
-        private FacebookPost FindByPicture(FacebookPost potentialRepost, IEnumerable<FacebookPost> lists)
+        public FacebookPost FindByPicture(FacebookPost potentialRepost)
         {
             if (string.IsNullOrEmpty(potentialRepost.PictureUrl))
             {
@@ -69,11 +68,12 @@ namespace RepostChecker.Domain
                 return null;
             }
 
+            var otherPosts = _posts.Where(s => s.Id != potentialRepost.Id);
             int downloadCounter = 1;
             Bitmap postToLookBitmap = Helper.GetImage(potentialRepost, _savePath);
-            var listPicture = lists.Where(s => s.PictureUrl != string.Empty).ToList();
+            var listPicture = otherPosts.Where(s => s.PictureUrl != string.Empty).ToList();
             int total = listPicture.Count;
-            foreach (var post in listPicture)
+            foreach (var post in otherPosts)
             {
                 var CompareBitMap = Helper.GetImage(post, _savePath);
                 if (Helper.Compare(postToLookBitmap, CompareBitMap, 5))
