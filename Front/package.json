@@ -1,0 +1,9 @@
+{
+  "name": "front",
+  "version": "0.0.0",
+  "description": "Front",
+  "main": "app.js",
+  "author": {
+    "name": "Crono"
+  }
+}
